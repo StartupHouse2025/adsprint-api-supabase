@@ -1,15 +1,14 @@
-from src.credential.get_credential.infrastructure.mongod import MongodCredential
+from src.credential.get_credential.infrastructure.supabase import SupabaseCredential
 from ..application.response import CredentialResponse
 
 class CredentialController:
 
     def __init__(self):
-        self.mongo_credential = MongodCredential()
+        self.supabase_credential = SupabaseCredential()
         self.response = CredentialResponse()
 
     def authenticate_credential(self, credential, pasw):
-        print(credential, pasw)
-        credential_info = self.mongo_credential.CredentialConnect(credential, pasw)
+        credential_info = self.supabase_credential.CredentialConnect(credential, pasw)
         parsed = self.response.parsedCredential(credential_info)
         return parsed
 

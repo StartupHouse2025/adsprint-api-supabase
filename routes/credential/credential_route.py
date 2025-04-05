@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 from src.credential.get_credential.infrastructure.controller import CredentialController
 from include.validators import checkArgs, parsedRespond
-
+from src.supabase.connect import SupabaseConnection  # Update import for Supabase connection
 
 # Crear un blueprint para el manejo de rutas de usuario
 credential_bp = Blueprint('credential', __name__)
@@ -11,12 +11,8 @@ credential_controller = CredentialController()
 
 # Función de consulta
 def consulta(credential, pasw):
-    if "@" not in credential:
-        credential = int(credential)
     credential_info = credential_controller.authenticate_credential(credential, pasw)  # Pasar credencial y contraseña
     return parsedRespond(credential_info)
-
-
 
 @credential_bp.route('/login', methods=['GET', 'POST'])
 def login():

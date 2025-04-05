@@ -1,15 +1,15 @@
-from src.credential.crear_credential.infrastructure.mongod import MongodCrearCredential
+from credential.crear_credential.infrastructure.supabase import SupabaseCrearCredential
 from ..application.response import CrearCredentialResponse
 
 class CrearCredentialController:
 
-    def __init__(self):
-        self.mongo_number_validar = MongodCrearCredential()
+    def __init__(self, supabase_url: str, supabase_key: str):
+        self.supabase_credential = SupabaseCrearCredential(supabase_url, supabase_key)
         self.response = CrearCredentialResponse()
 
     def crear_credential(self, data):
-        col = self.mongo_number_validar.CrearCredentialConnect()
-        status = self.response.SetCrearCredential(col, data)
+        table = self.supabase_credential.CrearCredentialConnect()
+        status = self.response.SetCrearCredential(table, data)
         return status
 
 

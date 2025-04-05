@@ -1,6 +1,6 @@
 from flask import Blueprint, request, abort
 from src.credential.crear_credential.infrastructure.controller import CrearCredentialController
-from src.mongodb.connect import ConnectionMongo
+from src.supabase.connect import SupabaseConnection  # Update import for Supabase connection
 
 # Crear un Blueprint en lugar de usar @app.route
 register_bp = Blueprint('register', __name__)
@@ -11,8 +11,8 @@ def consulta(info):
     credential_info = credential_crear_controller.crear_credential(info)  # Pasar credencial y contraseña
     return credential_info
 
-# Conectar a MongoDB
-mongo_connection = ConnectionMongo()
+# Conectar a Supabase
+supabase_connection = SupabaseConnection()  # Replace MongoDB connection with Supabase
 
 @register_bp.route('/signup', methods=['POST'])
 def signup():
